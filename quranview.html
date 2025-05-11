@@ -137,6 +137,29 @@
       border: 1px solid #ccc;
       box-sizing: border-box;
     }
+
+    .audio-controller {
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #01837A;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      z-index: 999;
+      display: none;
+    }
+
+    .audio-controller img {
+      width: 28px;
+      height: 28px;
+      cursor: pointer;
+    }
   </style>
 </head>
 <body>
@@ -157,6 +180,14 @@
 
   <div id="loading">লোড হচ্ছে...</div>
   <div id="ayahList"></div>
+
+  <!-- Floating audio controller -->
+  <div class="audio-controller" id="audioController">
+    <img src="prev.png" onclick="playPrevious()" alt="Previous">
+    <img src="pause.png" id="mainPlayPause" onclick="toggleMainPlayPause()" alt="Play/Pause">
+    <img src="next.png" onclick="playNext()" alt="Next">
+    <img src="stop.png" onclick="stopAudio()" alt="Stop">
+  </div>
 
   <script>
     function goBack() {
@@ -183,10 +214,7 @@
     }
 
     function convertToBanglaNumber(number) {
-      const engToBan = {
-        '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪',
-        '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯'
-      };
+      const engToBan = { '0': '০', '1': '১', '2': '২', '3': '৩', '4': '৪', '5': '৫', '6': '৬', '7': '৭', '8': '৮', '9': '৯' };
       return number.toString().split('').map(char => engToBan[char] || char).join('');
     }
 
@@ -236,6 +264,17 @@ https://play.google.com/store/apps/details?id=com.srizwan.bookhozur500`;
     let currentIndex = -1;
     let audioElements = [];
 
+    const controller = document.getElementById('audioController');
+    const mainPlayPause = document.getElementById('mainPlayPause');
+
+    function showController() {
+      controller.style.display = 'flex';
+    }
+
+    function hideController() {
+      controller.style.display = 'none';
+    }
+
     function toggleAudio(el) {
       const id = el.dataset.id;
       const index = audioElements.indexOf(el);
@@ -243,6 +282,7 @@ https://play.google.com/store/apps/details?id=com.srizwan.bookhozur500`;
       if (currentAudio && !currentAudio.paused && index === currentIndex) {
         currentAudio.pause();
         el.src = 'play.png';
+        mainPlayPause.src = 'play.png';
         return;
       }
 
@@ -255,6 +295,8 @@ https://play.google.com/store/apps/details?id=com.srizwan.bookhozur500`;
       const audioUrl = `https://cdn.islamic.network/quran/audio/64/ar.alafasy/${id}.mp3`;
       currentAudio = new Audio(audioUrl);
       el.src = 'pause.png';
+      mainPlayPause.src = 'pause.png';
+      showController();
 
       currentAudio.play().catch(err => {
         alert("অডিও চালাতে সমস্যা হচ্ছে");
@@ -263,6 +305,7 @@ https://play.google.com/store/apps/details?id=com.srizwan.bookhozur500`;
 
       currentAudio.onended = () => {
         el.src = 'play.png';
+        mainPlayPause.src = 'play.png';
         playNext();
       };
 
@@ -272,10 +315,41 @@ https://play.google.com/store/apps/details?id=com.srizwan.bookhozur500`;
       }
     }
 
+    function toggleMainPlayPause() {
+      if (currentAudio) {
+        if (currentAudio.paused) {
+          currentAudio.play();
+          mainPlayPause.src = 'pause.png';
+          audioElements[currentIndex].src = 'pause.png';
+        } else {
+          currentAudio.pause();
+          mainPlayPause.src = 'play.png';
+          audioElements[currentIndex].src = 'play.png';
+        }
+      }
+    }
+
+    function stopAudio() {
+      if (currentAudio) {
+        currentAudio.pause();
+        currentAudio.currentTime = 0;
+        audioElements[currentIndex].src = 'play.png';
+        mainPlayPause.src = 'play.png';
+      }
+      hideController();
+    }
+
     function playNext() {
       const nextIndex = currentIndex + 1;
       if (nextIndex < audioElements.length) {
         toggleAudio(audioElements[nextIndex]);
+      }
+    }
+
+    function playPrevious() {
+      const prevIndex = currentIndex - 1;
+      if (prevIndex >= 0) {
+        toggleAudio(audioElements[prevIndex]);
       }
     }
 
@@ -324,7 +398,6 @@ https://play.google.com/store/apps/details?id=com.srizwan.bookhozur500`;
             const playBtn = card.querySelector('img[alt="Play"]');
             audioElements.push(playBtn);
 
-            // ✅ Update progress
             loaded++;
             const percent = Math.round((loaded / total) * 100);
             loadingElement.innerText = `লোড হচ্ছে... ${convertToBanglaNumber(percent)}%`;
