@@ -145,7 +145,7 @@
       return number.toString().split('').map(char => engToBan[char] || char).join('');
     }
 
-    fetch('https://islamibook.great-site.net/sura.json')
+    fetch('https://islamiencyclopedia0-github-com.vercel.app/sura.json')
       .then(response => response.json())
       .then(data => {
         const surahList = document.getElementById('surahList');
