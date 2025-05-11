@@ -41,6 +41,13 @@
       cursor: pointer;
     }
 
+    #loading {
+      text-align: center;
+      padding: 20px;
+      font-size: 18px;
+      color: #555;
+    }
+
     .ayah-card {
       margin: 10px;
       background-color: #ffffff;
@@ -148,6 +155,7 @@
     <input type="text" id="searchInput" placeholder="আয়াত অনুসন্ধান করুন...">
   </div>
 
+  <div id="loading">লোড হচ্ছে...</div>
   <div id="ayahList"></div>
 
   <script>
@@ -223,6 +231,7 @@ https://play.google.com/store/apps/details?id=com.srizwan.bookhozur500`;
     }
 
     const surahName = getQueryParam('surah');
+    const loadingElement = document.getElementById('loading');
     let currentAudio = null;
     let currentIndex = -1;
     let audioElements = [];
@@ -283,6 +292,9 @@ https://play.google.com/store/apps/details?id=com.srizwan.bookhozur500`;
         .then(res => res.json())
         .then(data => {
           const ayahList = document.getElementById('ayahList');
+          const total = data.length;
+          let loaded = 0;
+
           data.forEach(ayah => {
             const ayahNum = convertToBanglaNumber(ayah.verses || '');
             const card = document.createElement('div');
@@ -311,10 +323,18 @@ https://play.google.com/store/apps/details?id=com.srizwan.bookhozur500`;
             ayahList.appendChild(card);
             const playBtn = card.querySelector('img[alt="Play"]');
             audioElements.push(playBtn);
+
+            // ✅ Update progress
+            loaded++;
+            const percent = Math.round((loaded / total) * 100);
+            loadingElement.innerText = `লোড হচ্ছে... ${convertToBanglaNumber(percent)}%`;
           });
+
+          loadingElement.style.display = 'none';
         })
         .catch(err => {
           document.getElementById('ayahList').innerHTML = '<p>ডেটা লোড করা যায়নি।</p>';
+          loadingElement.innerText = 'ডেটা লোড করা যায়নি';
           console.error('Error loading:', err);
         });
     } else {
