@@ -19,18 +19,23 @@
 
         html, body {
             height: 100%;
+            width: 100%;
         }
 
         body {
             background-color: #01837A;
             font-family: 'SolaimanLipi', sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            align-items: center;
             color: white;
             text-align: center;
-            padding: 40px 20px 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .center-content {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
         }
 
         .app-icon {
@@ -40,6 +45,10 @@
         }
 
         .bottom-section {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             width: 100%;
         }
 
@@ -80,7 +89,9 @@
 </head>
 <body>
 
-    <img src="icon.png" alt="App Icon" class="app-icon">
+    <div class="center-content">
+        <img src="icon.png" alt="App Icon" class="app-icon">
+    </div>
 
     <div class="bottom-section">
         <div class="darood">❝আল্লাহুম্মা ছাল্লি আলা সাইয়্যিদিনা মুহাম্মাদিনিন নাবিয়্যিল উম্মিই ওয়া আলা আলিহি ওয়া সাল্লিম।❞</div>
