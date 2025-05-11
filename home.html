@@ -27,7 +27,7 @@
             min-height: 100vh;
             color: white;
             text-align: center;
-            padding: 40px 20px 30px; /* উপরে 40px, নিচে 30px */
+            padding: 40px 20px 30px;
         }
 
         .app-icon {
@@ -40,7 +40,7 @@
 
         .bottom-section {
             width: 100%;
-            margin-top: 150px; /* আইকন থেকে 150px নিচে */
+            margin-top: 150px;
         }
 
         .darood {
@@ -54,6 +54,7 @@
             font-weight: bold;
             margin-bottom: 10px;
             padding: 0 10px;
+            min-height: 24px;
         }
 
         .developer {
@@ -83,14 +84,28 @@
 
     <div class="bottom-section">
         <div class="darood">❝আল্লাহুম্মা ছাল্লি আলা সাইয়্যিদিনা মুহাম্মাদিনিন নাবিয়্যিল উম্মিই ওয়া আলা আলিহি ওয়া সাল্লিম।❞</div>
-        <div class="app-name">ইসলামী বিশ্বকোষ ও আল হাদিস S2</div>
+        <div class="app-name" id="appName"></div>
         <div class="developer">ডেভেলপার : আব্দুল মুস্তফা রাহিম রমজান</div>
     </div>
 
     <script>
-        setTimeout(function () {
-            window.location.href = "main.html";
-        }, 1000);
+        const appNameText = "ইসলামী বিশ্বকোষ ও আল হাদিস S2";
+        const appNameElement = document.getElementById('appName');
+        let index = 0;
+
+        function typeText() {
+            if (index < appNameText.length) {
+                appNameElement.textContent += appNameText.charAt(index);
+                index++;
+                setTimeout(typeText, 100); // টাইপিং স্পিড
+            } else {
+                setTimeout(() => {
+                    window.location.href = "main.html";
+                }, 1000); // টাইপিং শেষের পর রিডাইরেক্ট
+            }
+        }
+
+        typeText();
     </script>
 
 </body>
