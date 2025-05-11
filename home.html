@@ -2,96 +2,88 @@
 <html lang="bn">
 <head>
     <meta charset="UTF-8">
-    <title>Home - ইসলামী বিশ্বকোষ ও আল হাদিস S2</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+    <title>ইসলামী বিশ্বকোষ</title>
     <style>
-        @font-face {
-            font-family: 'SolaimanLipi';
-            src: url('fonts/SolaimanLipi.ttf') format('truetype');
-        }
-
-        * {
+        body {
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
+            font-family: 'SolaimanLipi', sans-serif;
+            background: url('green_2.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #FFFDFD;
+            text-align: center;
         }
 
-        body {
-            background-color: #01837A;
-            font-family: 'SolaimanLipi', sans-serif;
+        .container {
             display: flex;
             flex-direction: column;
+            justify-content: center;
             align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
-            color: white;
-            text-align: center;
-            padding: 40px 20px 30px; /* উপরে 40px, নিচে 30px */
+            height: 100vh;
         }
 
-        .app-icon {
-            width: 150px;
-            height: 150px;
-            border-radius: 20px;
-            margin-top: 40px;
-            margin-bottom: 30px;
+        img#hozur {
+            width: 200px;
+            height: 200px;
+            margin-bottom: 100px;
         }
 
-        .bottom-section {
-            width: 100%;
-            margin-top: 150px; /* আইকন থেকে 150px নিচে */
+        .text1 {
+            font-size: 12px;
+            margin: 5px;
+            padding: 5px;
         }
 
-        .darood {
-            font-size: 14px;
+        .title {
+            font-family: 'BanglaFont1', sans-serif;
+            font-size: 18px;
             margin-bottom: 10px;
-            padding: 0 10px;
-        }
-
-        .app-name {
-            font-size: 20px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            padding: 0 10px;
         }
 
         .developer {
-            font-size: 14px;
-            padding: 0 10px;
-        }
-
-        @media (max-width: 400px) {
-            .app-icon {
-                width: 110px;
-                height: 110px;
-            }
-
-            .app-name {
-                font-size: 16px;
-            }
-
-            .darood, .developer {
-                font-size: 12px;
-            }
+            font-family: 'BanglaFont1', sans-serif;
+            font-size: 12px;
+            margin-bottom: 5px;
         }
     </style>
 </head>
 <body>
 
-    <img src="icon.png" alt="App Icon" class="app-icon">
-
-    <div class="bottom-section">
-        <div class="darood">❝আল্লাহুম্মা ছাল্লি আলা সাইয়্যিদিনা মুহাম্মাদিনিন নাবিয়্যিল উম্মিই ওয়া আলা আলিহি ওয়া সাল্লিম।❞</div>
-        <div class="app-name">ইসলামী বিশ্বকোষ ও আল হাদিস S2</div>
-        <div class="developer">ডেভেলপার : আব্দুল মুস্তফা রাহিম রমজান</div>
+<div class="container">
+    <div class="text1">
+        ❝আল্লাহুম্মা ছাল্লি আলা সাইয়্যিদিনা মুহাম্মাদিনিন<br>
+        নাবিয়্যিল উম্মিই ওয়া আলা আলিহি ওয়া সাল্লিম।❞
     </div>
 
-    <script>
-        setTimeout(function () {
-            window.location.href = "main.html";
-        }, 3500);
-    </script>
+    <img id="hozur" src="logome.png" alt="Hozur Logo">
+
+    <div class="title" id="appTitle"></div>
+
+    <div class="developer">
+        ডেভেলপার : আব্দুল মুস্তফা রাহিম রমজান (রিজওয়ান)
+    </div>
+</div>
+
+<script>
+    const fullText = "ইসলামী বিশ্বকোষ ও আল হাদিস S2";
+    const titleEl = document.getElementById('appTitle');
+    let i = 0;
+
+    function typeWriter() {
+        if (i <= fullText.length) {
+            titleEl.innerHTML = fullText.substring(0, i);
+            i++;
+            setTimeout(typeWriter, 100);
+        } else {
+            // টাইপিং শেষ হলে main.html-এ রিডাইরেক্ট
+            setTimeout(() => {
+                window.location.href = "main.html";
+            }, 500); // একটু দেরিতে redirect
+        }
+    }
+
+    typeWriter();
+</script>
 
 </body>
 </html>
