@@ -9,11 +9,15 @@
       font-family: 'SolaimanLipi';
       src: url('fonts/SolaimanLipi.ttf') format('truetype');
     }
+    @font-face {
+      font-family: 'Amiri';
+      src: url('fonts/Amiri-Regular.ttf') format('truetype');
+    }
 
     body {
       margin: 0;
       font-family: 'SolaimanLipi', sans-serif;
-      background-color: #f9f9f9;
+      background-color: #f0f0f0;
     }
 
     .toolbar {
@@ -38,7 +42,9 @@
     .search-box {
       padding: 10px;
       display: none;
+      background-color: #ffffff;
     }
+
     .search-box input {
       width: 100%;
       padding: 10px;
@@ -57,9 +63,14 @@
       background-color: white;
       margin-bottom: 10px;
       padding: 15px;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.08);
       cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .surah-item:hover {
+      transform: scale(1.01);
     }
 
     .surah-header {
@@ -71,22 +82,24 @@
     .surah-number {
       font-weight: bold;
       color: #01837A;
+      font-size: 16px;
     }
 
     .surah-name {
       font-size: 16px;
       font-weight: bold;
+      color: #222;
     }
 
     .surah-details {
       margin-top: 5px;
       font-size: 14px;
-      color: #555;
+      color: #666;
     }
 
     .surah-arabic {
       margin-top: 5px;
-      font-size: 18px;
+      font-size: 20px;
       color: #000;
       text-align: right;
       font-family: 'Amiri', serif;
