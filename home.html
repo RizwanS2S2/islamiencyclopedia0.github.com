@@ -17,14 +17,17 @@
             box-sizing: border-box;
         }
 
+        html, body {
+            height: 100%;
+        }
+
         body {
             background-color: #01837A;
             font-family: 'SolaimanLipi', sans-serif;
             display: flex;
             flex-direction: column;
+            justify-content: space-between;
             align-items: center;
-            justify-content: flex-start;
-            min-height: 100vh;
             color: white;
             text-align: center;
             padding: 40px 20px 30px;
@@ -34,13 +37,10 @@
             width: 150px;
             height: 150px;
             border-radius: 20px;
-            margin-top: 40px;
-            margin-bottom: 30px;
         }
 
         .bottom-section {
             width: 100%;
-            margin-top: 150px;
         }
 
         .darood {
@@ -97,11 +97,11 @@
             if (index < appNameText.length) {
                 appNameElement.textContent += appNameText.charAt(index);
                 index++;
-                setTimeout(typeText, 100); // টাইপিং স্পিড
+                setTimeout(typeText, 100);
             } else {
                 setTimeout(() => {
                     window.location.href = "main.html";
-                }, 1000); // টাইপিং শেষের পর রিডাইরেক্ট
+                }, 1000);
             }
         }
 
