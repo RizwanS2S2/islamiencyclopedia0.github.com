@@ -137,27 +137,27 @@ body {
   box-sizing: border-box;  
 }  
 
-.audio-controller {  
-  position: fixed;  
-  bottom: 20px;  
-  left: 50%;  
-  transform: translateX(-50%);  
-  background: #01837A;  
-  color: white;  
-  padding: 10px 20px;  
-  border-radius: 30px;  
-  display: flex;  
-  align-items: center;  
-  gap: 15px;  
-  box-shadow: 0 4px 12px rgba(0,0,0,0.3);  
-  z-index: 999;  
-  display: none;  
-}  
+.audio-controller {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 56px;
+  background: #01837A;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.2);
+  display: none;
+}
 
-.audio-controller img {  
-  width: 28px;  
-  height: 28px;  
-  cursor: pointer;  
+.audio-controller img {
+  width: 30px;
+  height: 30px;
+  margin: 0 20px;
+  cursor: pointer;
+  filter: brightness(0) invert(1);
 }
 
 .next-icon {
@@ -180,11 +180,19 @@ transform: rotate(180deg);
     <input type="text" id="searchInput" placeholder="আয়াত অনুসন্ধান করুন...">  
   </div>    <div id="loading">লোড হচ্ছে...</div>  
   <div id="ayahList"></div>    <!-- Floating audio controller -->    <div class="audio-controller" id="audioController">  
-    <img src="next.png" onclick="playPrevious()" alt="Previous" class="next-icon">  
-    <img src="pause.png" id="mainPlayPause" onclick="toggleMainPlayPause()" alt="Play/Pause">  
-    <img src="next.png" onclick="playNext()" alt="Next">  
-    <img src="stop.png" onclick="stopAudio()" alt="Stop">  
+  <img src="next.png" onclick="playPrevious()" alt="Previous" class="next-icon">  
+  <img src="pause.png" id="mainPlayPause" onclick="toggleMainPlayPause()" alt="Play/Pause">  
+  <img src="next.png" onclick="playNext()" alt="Next">  
+  <img src="stop.png" onclick="stopAudio()" alt="Stop">
   </div>    <script>  
+  function resetControllerStyleToFixed() {
+  controller.style.position = 'fixed';
+  controller.style.bottom = '0';
+  controller.style.left = '0';
+  controller.style.right = '0';
+  controller.style.marginTop = '0';
+  controller.style.transform = 'none';
+}
   function jumpToAyah() {
   const userInput = prompt("কোন আয়াতে যেতে চান? (সংখ্যা লিখুন)", "");
   if (!userInput) return;
