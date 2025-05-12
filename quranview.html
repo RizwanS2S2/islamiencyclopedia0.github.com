@@ -166,18 +166,16 @@ transform: rotate(180deg);
 </style>
 
 </head>  
-<body>    <div class="toolbar">  
-    <div onclick="goBack()">  
-      <img src="back.png" alt="Back" class="icon-img">  
-    </div>  
-    <div class="toolbar-title" id="surahTitle">সূরা</div>  
-    <!-- Jump to Ayah -->
-<div>
-  <img src="jump.png" alt="Jump to Ayah" class="icon-img" onclick="jumpToAyah()" title="Jump to Ayah">
-</div>
-    <div>  
-      <img src="search.png" alt="Search" class="icon-img" onclick="toggleSearch()">  
-    </div>  
+<body>    <div class="toolbar">
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <img src="back.png" alt="Back" class="icon-img" onclick="goBack()">
+    <div class="toolbar-title" id="surahTitle">সূরা</div>
+  </div>
+  <div style="display: flex; align-items: center; gap: 10px; padding-right: 5px;">
+    <img src="jump.png" alt="Jump to Ayah" class="icon-img" onclick="jumpToAyah()" title="Jump to Ayah">
+    <img src="search.png" alt="Search" class="icon-img" onclick="toggleSearch()">
+  </div>
+</div>  
   </div>    <div id="searchBox">  
     <input type="text" id="searchInput" placeholder="আয়াত অনুসন্ধান করুন...">  
   </div>    <div id="loading">লোড হচ্ছে...</div>  
