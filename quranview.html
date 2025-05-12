@@ -185,7 +185,7 @@ transform: rotate(180deg);
     <img src="next.png" onclick="playNext()" alt="Next">  
     <img src="stop.png" onclick="stopAudio()" alt="Stop">  
   </div>    <script>  
-  function jumpToAyah() {
+function jumpToAyah() {
   const userInput = prompt("কোন আয়াতে যেতে চান? (সংখ্যা লিখুন)", "");
   if (!userInput) return;
 
@@ -196,8 +196,14 @@ transform: rotate(180deg);
   }
 
   const cards = document.querySelectorAll('.ayah-card');
-  if (target > 0 && target <= cards.length) {
-    cards[target - 1].scrollIntoView({ behavior: 'smooth', block: 'center' });
+
+  const surah = getQueryParam('surah');
+  const isExactSurah = ['Al-Fatihah', 'At-Talaq', 'At-Tawbah'].includes(surah);
+
+  const jumpIndex = isExactSurah ? target - 1 : target; // +1 মূলত এখানে বাস্তবায়ন হচ্ছে
+
+  if (jumpIndex >= 0 && jumpIndex < cards.length) {
+    cards[jumpIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
   } else {
     alert("এই সূরায় এতগুলো আয়াত নেই");
   }
