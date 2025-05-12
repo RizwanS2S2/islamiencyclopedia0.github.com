@@ -287,28 +287,33 @@ https://play.google.com/store/apps/details?id=com.srizwan.bookhozur500`;
       controller.style.display = 'none';  
     }  
   
-    function toggleAudio(el) {  
-      const id = el.dataset.id;  
-      const index = audioElements.indexOf(el);  
-  
-      if (currentAudio && !currentAudio.paused && index === currentIndex) {  
-        currentAudio.pause();  
-        el.src = 'play.png';  
-        mainPlayPause.src = 'play.png';  if (currentIndex === audioElements.length - 1) {
-  controller.style.position = 'static';
-  controller.style.marginTop = '20px';
-  controller.style.transform = 'none';
-  controller.style.left = 'unset';
-  controller.style.bottom = 'unset';
-} else {
-  controller.style.position = 'fixed';
-  controller.style.bottom = '20px';
-  controller.style.left = '50%';
-  controller.style.transform = 'translateX(-50%)';
-  controller.style.marginTop = '0';
-}
-        return;  
-      }  
+    function toggleAudio(el) {
+  const id = el.dataset.id;
+  const index = audioElements.indexOf(el);
+
+  if (currentAudio && !currentAudio.paused && index === currentIndex) {
+    currentAudio.pause();
+    el.src = 'play.png';
+    mainPlayPause.src = 'play.png';
+    
+    // যদি শেষ আয়াত হয়, controller নিচে চলে যাবে
+    if (currentIndex === audioElements.length - 1) {
+      controller.style.position = 'static';
+      controller.style.marginTop = '20px';
+      controller.style.transform = 'none';
+      controller.style.left = 'unset';
+      controller.style.bottom = 'unset';
+    } else {
+      // অন্যথায় controller আবার নিচে স্থির থাকবে
+      controller.style.position = 'fixed';
+      controller.style.bottom = '20px';
+      controller.style.left = '50%';
+      controller.style.transform = 'translateX(-50%)';
+      controller.style.marginTop = '0';
+    }
+    return;
+  }
+
   
       if (currentAudio) {  
         currentAudio.pause();  
@@ -363,12 +368,19 @@ https://play.google.com/store/apps/details?id=com.srizwan.bookhozur500`;
       hideController();  
     }  
   
-    function playNext() {  
-      const nextIndex = currentIndex + 1;  
-      if (nextIndex < audioElements.length) {  
-        toggleAudio(audioElements[nextIndex]);  
-      }  
-    }  
+    function playNext() {
+  const nextIndex = currentIndex + 1;
+  if (nextIndex < audioElements.length) {
+    toggleAudio(audioElements[nextIndex]);
+  } else {
+    // শেষ আয়াতে পৌঁছালে অডিও controller অবস্থান পরিবর্তন হবে
+    controller.style.position = 'static';
+    controller.style.marginTop = '20px';
+    controller.style.transform = 'none';
+    controller.style.left = 'unset';
+    controller.style.bottom = 'unset';
+  }
+}
   
     function playPrevious() {  
       const prevIndex = currentIndex - 1;  
